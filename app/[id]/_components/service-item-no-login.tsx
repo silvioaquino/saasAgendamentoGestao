@@ -2,27 +2,28 @@
 
 import { Barbershop, BarbershopService, Booking } from "@prisma/client"
 import Image from "next/image"
-import { Button } from "./ui/button"
-import { Card, CardContent } from "./ui/card"
+import { Button } from "../../_components/ui/button"
+import { Card, CardContent } from "../../_components/ui/card"
 import {
   Sheet,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "./ui/sheet"
-import { Calendar } from "./ui/calendar"
+} from "../../_components/ui/sheet"
+import { Calendar } from "../../_components/ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useMemo, useState } from "react"
 import { isPast, isToday, set } from "date-fns"
-import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
-import { getBookings } from "../_actions/get-bookings"
-import { Dialog, DialogContent } from "./ui/dialog"
-import SignInDialog from "./sign-in-dialog"
-import BookingSummary from "./booking-summary"
+import { getBookings } from "../../_actions/get-bookings"
+import { Dialog, DialogContent } from "../../_components/ui/dialog"
+import SignInDialog from "../../_components/sign-in-dialog"
+import BookingSummary from "../../_components/booking-summary"
 import { useRouter } from "next/navigation"
+import { Input } from "../../_components/ui/input"
+import { createBookingNoLogin } from "../../_actions/create-booking-nologin"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -80,7 +81,7 @@ const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
   })
 }
 
-const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
+const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
   const { data } = useSession()
   const router = useRouter()
   const [signInDialogIsOpen, setSignInDialogIsOpen] = useState(false)
@@ -91,17 +92,39 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingSheetIsOpen, setBookingSheetIsOpen] = useState(false)
 
-  useEffect(() => {
+  //const nome = useState<string | undefined>('')
+  const [nome, setNome] = useState("")
+  const [phone, setTelefone] = useState("")
+  const [mensagem, setMensagem] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // Aqui você pode enviar os dados para um servidor ou fazer outra ação
+    setMensagem(`Nome: ${nome}, Telefone: ${phone}`)
+    setNome("")
+    setTelefone("")
+    console.log(`Nome: ${setNome}, Telefone: ${setTelefone}`)
+  }
+
+  const handleNomeChange = (e) => setNome(e.target.value)
+  const handleTelefoneChange = (e) => setTelefone(e.target.value)
+  //const phone = useState<string | undefined>('')
+
+  {
+    /*useEffect(() => {
     const fetch = async () => {
       if (!selectedDay) return
       const bookings = await getBookings({
         date: selectedDay,
         serviceId: service.id,
+        
       })
       setDayBookings(bookings)
     }
     fetch()
-  }, [selectedDay, service.id])
+  }, [selectedDay, service.id])*/
+  }
 
   const selectedDate = useMemo(() => {
     if (!selectedDay || !selectedTime) return
@@ -112,10 +135,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   }, [selectedDay, selectedTime])
 
   const handleBookingClick = () => {
-    if (data?.user) {
-      return setBookingSheetIsOpen(true)
-    }
-    return setSignInDialogIsOpen(true)
+    //if (data?.user) {
+    //return setBookingSheetIsOpen(true)
+    //}
+    //return setSignInDialogIsOpen(true)
+    return setBookingSheetIsOpen(true)
   }
 
   const handleBookingSheetOpenChange = () => {
@@ -136,9 +160,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const handleCreateBooking = async () => {
     try {
       if (!selectedDate) return
-      await createBooking({
+      await createBookingNoLogin({
         serviceId: service.id,
         date: selectedDate,
+        name: nome,
+        phone: phone,
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {
@@ -259,6 +285,29 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       )}
                     </div>
                   )}
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid grid-flow-col gap-2 py-4">
+                      <Input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value={nome}
+                        onChange={handleNomeChange}
+                        required
+                        placeholder="Nome"
+                      />
+
+                      <Input
+                        type="text"
+                        id="telefone"
+                        name="telefone"
+                        value={phone}
+                        onChange={handleTelefoneChange}
+                        required
+                        placeholder="Telefone"
+                      />
+                    </div>
+                  </form>
 
                   {selectedDate && (
                     <div className="p-5">
@@ -269,10 +318,13 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       />
                     </div>
                   )}
+
                   <SheetFooter className="mt-5 px-5">
                     <Button
                       onClick={handleCreateBooking}
-                      disabled={!selectedDay || !selectedTime}
+                      disabled={
+                        !selectedDay || (!selectedTime && !nome) || !phone
+                      }
                     >
                       Confirmar
                     </Button>
@@ -296,4 +348,4 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   )
 }
 
-export default ServiceItem
+export default ServiceItemNoLogin
