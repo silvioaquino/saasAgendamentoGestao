@@ -232,7 +232,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
 
-                  <div className="border-b border-solid py-5">
+                  <div className="border-b border-solid py-3">
                     <Calendar
                       mode="single"
                       locale={ptBR}
@@ -266,7 +266,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                   </div>
 
                   {selectedDay && (
-                    <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
+                    <div className="flex gap-2 overflow-x-auto border-b border-solid p-3 [&::-webkit-scrollbar]:hidden">
                       {timeList.length > 0 ? (
                         timeList.map((time) => (
                           <Button
@@ -288,7 +288,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                     </div>
                   )}
                   <form onSubmit={handleSubmit}>
-                    <div className="grid grid-flow-col gap-2 py-4">
+                    <div className="grid grid-flow-col gap-2 p-2 py-3">
                       <Input
                         type="text"
                         id="nome"
@@ -312,7 +312,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                   </form>
 
                   {selectedDate && (
-                    <div className="p-5">
+                    <div className="p-1">
                       <BookingSummary
                         barbershop={barbershop}
                         service={service}
@@ -321,7 +321,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                     </div>
                   )}
 
-                  <SheetFooter className="mt-5 px-5">
+                  <SheetFooter className="mt-2 px-5">
                     <Button
                       onClick={handleCreateBooking}
                       disabled={
