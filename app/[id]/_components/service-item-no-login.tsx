@@ -13,9 +13,9 @@ import {
 } from "../../_components/ui/sheet"
 import { Calendar } from "../../_components/ui/calendar"
 import { ptBR } from "date-fns/locale"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { isPast, isToday, set } from "date-fns"
-import { useSession } from "next-auth/react"
+//import { useSession } from "next-auth/react"
 import { toast } from "sonner"
 import { Dialog, DialogContent } from "../../_components/ui/dialog"
 import SignInDialog from "../../_components/sign-in-dialog"
@@ -23,6 +23,7 @@ import BookingSummary from "../../_components/booking-summary"
 import { useRouter } from "next/navigation"
 import { Input } from "../../_components/ui/input"
 import { createBookingNoLogin } from "../../_actions/create-booking-nologin"
+import { getBookings } from "@/app/_actions/get-bookings"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -94,7 +95,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
   //const nome = useState<string | undefined>('')
   const [nome, setNome] = useState("")
   const [phone, setTelefone] = useState("")
-  //const [mensagem, setMensagem] = useState("")
+  const [, setMensagem] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -111,18 +112,17 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
   //const phone = useState<string | undefined>('')
 
   {
-    /*useEffect(() => {
-    const fetch = async () => {
-      if (!selectedDay) return
-      const bookings = await getBookings({
-        date: selectedDay,
-        serviceId: service.id,
-        
-      })
-      setDayBookings(bookings)
-    }
-    fetch()
-  }, [selectedDay, service.id])*/
+    useEffect(() => {
+      const fetch = async () => {
+        if (!selectedDay) return
+        const bookings = await getBookings({
+          date: selectedDay,
+          serviceId: service.id,
+        })
+        setDayBookings(bookings)
+      }
+      fetch()
+    }, [selectedDay, service.id])
   }
 
   const selectedDate = useMemo(() => {

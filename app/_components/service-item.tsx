@@ -94,7 +94,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const [nome, setNome] = useState("")
   const [phone, setTelefone] = useState("")
-  const [mensagem, setMensagem] = useState("")
+  const [, setMensagem] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
