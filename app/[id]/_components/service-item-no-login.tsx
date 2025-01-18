@@ -232,7 +232,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
 
-                  <div className="border-b border-solid py-3">
+                  <div className="border-b border-solid py-4">
                     <Calendar
                       mode="single"
                       locale={ptBR}
