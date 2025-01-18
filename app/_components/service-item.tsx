@@ -13,7 +13,7 @@ import {
 } from "./ui/sheet"
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
-import { useEffect, useMemo, useState } from "react"
+import { SetStateAction, useEffect, useMemo, useState } from "react"
 import { isPast, isToday, set } from "date-fns"
 import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
@@ -96,7 +96,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [phone, setTelefone] = useState("")
   const [, setMensagem] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
     // Aqui você pode enviar os dados para um servidor ou fazer outra ação
@@ -106,8 +106,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     console.log(`Nome: ${setNome}, Telefone: ${setTelefone}`)
   }
 
-  const handleNomeChange = (e) => setNome(e.target.value)
-  const handleTelefoneChange = (e) => setTelefone(e.target.value)
+  const handleNomeChange = (e: { target: { value: SetStateAction<string> } }) =>
+    setNome(e.target.value)
+  const handleTelefoneChange = (e: {
+    target: { value: SetStateAction<string> }
+  }) => setTelefone(e.target.value)
 
   useEffect(() => {
     const fetch = async () => {
