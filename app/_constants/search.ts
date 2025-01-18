@@ -10,22 +10,22 @@ export const quickSearchOptions: QuickSearchOption[] = [
   },
   {
     imageUrl: "/barba.svg",
-    title: "Barba",
+    title: "Cabelo + Barba",
   },
   {
     imageUrl: "/acabamento.svg",
-    title: "Acabamento",
+    title: "Barba",
   },
   {
     imageUrl: "/massagem.svg",
-    title: "Massagem",
+    title: "Hidratação",
   },
   {
     imageUrl: "/sobrancelha.svg",
-    title: "Sobrancelha",
+    title: "Cabelo+Barbar+Sobrancelha",
   },
   {
     imageUrl: "/hidratacao.svg",
-    title: "Hidratação",
+    title: "Barbaterapia",
   },
 ]

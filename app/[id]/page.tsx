@@ -68,7 +68,7 @@ const Home = async ({ params }: BarbershopDetailsPageProps) => {
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             alt="Agende no melhor com FSW Barber"
-            src="/banner02.png"
+            src="/banner-04.png"
             fill
             className="rounded-xl object-cover"
           />

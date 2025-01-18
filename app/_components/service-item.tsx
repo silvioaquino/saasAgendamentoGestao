@@ -23,6 +23,7 @@ import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import BookingSummary from "./booking-summary"
 import { useRouter } from "next/navigation"
+import { Input } from "./ui/input"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -91,6 +92,23 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingSheetIsOpen, setBookingSheetIsOpen] = useState(false)
 
+  const [nome, setNome] = useState("")
+  const [phone, setTelefone] = useState("")
+  const [mensagem, setMensagem] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    // Aqui você pode enviar os dados para um servidor ou fazer outra ação
+    setMensagem(`Nome: ${nome}, Telefone: ${phone}`)
+    setNome("")
+    setTelefone("")
+    console.log(`Nome: ${setNome}, Telefone: ${setTelefone}`)
+  }
+
+  const handleNomeChange = (e) => setNome(e.target.value)
+  const handleTelefoneChange = (e) => setTelefone(e.target.value)
+
   useEffect(() => {
     const fetch = async () => {
       if (!selectedDay) return
@@ -139,6 +157,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       await createBooking({
         serviceId: service.id,
         date: selectedDate,
+        name: nome,
+        phone: phone,
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {
@@ -259,6 +279,30 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       )}
                     </div>
                   )}
+
+                  <form onSubmit={handleSubmit}>
+                    <div className="grid grid-flow-col gap-2 py-4">
+                      <Input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        value={nome}
+                        onChange={handleNomeChange}
+                        required
+                        placeholder="Nome"
+                      />
+
+                      <Input
+                        type="text"
+                        id="telefone"
+                        name="telefone"
+                        value={phone}
+                        onChange={handleTelefoneChange}
+                        required
+                        placeholder="Telefone"
+                      />
+                    </div>
+                  </form>
 
                   {selectedDate && (
                     <div className="p-5">
