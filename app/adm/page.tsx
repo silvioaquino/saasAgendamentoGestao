@@ -13,7 +13,7 @@ interface ServiceItemProps {
   barbershop: Pick<Barbershop, "name">
 }
 
-const Administrador = ({ service, barbershop }: ServiceItemProps) => {
+const Administrador = ({}: ServiceItemProps) => {
   // Recuperar a sessão do usuário (ver se ele estar logado ou não)
   //const session = await getServerSession(authOptions)
   //Se ele não estiver logado, redirecionar para a página de login

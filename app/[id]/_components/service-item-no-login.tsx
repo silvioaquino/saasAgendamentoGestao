@@ -13,11 +13,10 @@ import {
 } from "../../_components/ui/sheet"
 import { Calendar } from "../../_components/ui/calendar"
 import { ptBR } from "date-fns/locale"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { isPast, isToday, set } from "date-fns"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
-import { getBookings } from "../../_actions/get-bookings"
 import { Dialog, DialogContent } from "../../_components/ui/dialog"
 import SignInDialog from "../../_components/sign-in-dialog"
 import BookingSummary from "../../_components/booking-summary"
@@ -82,7 +81,7 @@ const getTimeList = ({ bookings, selectedDay }: GetTimeListProps) => {
 }
 
 const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
-  const { data } = useSession()
+  //const { data } = useSession()
   const router = useRouter()
   const [signInDialogIsOpen, setSignInDialogIsOpen] = useState(false)
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined)
@@ -95,7 +94,7 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
   //const nome = useState<string | undefined>('')
   const [nome, setNome] = useState("")
   const [phone, setTelefone] = useState("")
-  const [mensagem, setMensagem] = useState("")
+  //const [mensagem, setMensagem] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
