@@ -3,17 +3,17 @@ import Header from "../_components/header"
 import { Calendar } from "../_components/ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useState } from "react"
-import { Barbershop, BarbershopService, Booking } from "@prisma/client"
+import { Booking } from "@prisma/client"
 import { getBookingsListConcluded } from "./_components/booking-list-concluded"
 import { getBookingsListConfirmed } from "./_components/booking-list-confirmed"
 import BookingItemAdm from "./_components/booking-item-adm"
 
-interface ServiceItemProps {
-  service: BarbershopService
-  barbershop: Pick<Barbershop, "name">
-}
+//interface ServiceItemProps {
+//service: BarbershopService
+//barbershop: Pick<Barbershop, "name">
+//}
 
-const Administrador = ({}: ServiceItemProps) => {
+const Administrador = () => {
   // Recuperar a sessão do usuário (ver se ele estar logado ou não)
   //const session = await getServerSession(authOptions)
   //Se ele não estiver logado, redirecionar para a página de login
