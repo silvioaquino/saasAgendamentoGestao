@@ -8,19 +8,7 @@ import { getBookingsListConcluded } from "./_components/booking-list-concluded"
 import { getBookingsListConfirmed } from "./_components/booking-list-confirmed"
 import BookingItemAdm from "./_components/booking-item-adm"
 
-//interface ServiceItemProps {
-//service: BarbershopService
-//barbershop: Pick<Barbershop, "name">
-//}
-
 const Administrador = () => {
-  // Recuperar a sessão do usuário (ver se ele estar logado ou não)
-  //const session = await getServerSession(authOptions)
-  //Se ele não estiver logado, redirecionar para a página de login
-  //if (!session?.user) {
-  //return notFound()
-  //}
-
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined)
   const [confirmedBookings, setconfirmedBookings] = useState<Booking[]>([])
   const [concludedBookings, setconcludedBookings] = useState<Booking[]>([])
