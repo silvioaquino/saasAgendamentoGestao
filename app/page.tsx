@@ -12,6 +12,7 @@ import { authOptions } from "./_lib/auth"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
+import AuthenticatedHomeContent from "./_components/conteudo-autenticado"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
@@ -78,6 +79,8 @@ const Home = async () => {
             className="rounded-xl object-cover"
           />
         </div>
+
+        <AuthenticatedHomeContent />
 
         {confirmedBookings.length > 0 && (
           <>
