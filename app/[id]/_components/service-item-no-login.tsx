@@ -123,7 +123,6 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
           serviceId: service.id,
           serviceName: service.name,
           servicePrice: service.price,
-          serviceTime: selectedDay,
         })
         setDayBookings(bookings)
       }
@@ -172,7 +171,6 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
         phone: phone,
         serviceName: service.name,
         servicePrice: service.price,
-        serviceTime: selectedDate,
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {

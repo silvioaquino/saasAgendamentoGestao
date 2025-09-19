@@ -120,7 +120,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         serviceId: service.id,
         serviceName: service.name,
         servicePrice: service.price,
-        
       })
       setDayBookings(bookings)
     }
