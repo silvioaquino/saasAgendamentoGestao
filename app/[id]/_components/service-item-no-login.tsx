@@ -121,11 +121,14 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
         const bookings = await getBookings({
           date: selectedDay,
           serviceId: service.id,
+          serviceName: service.name,
+          servicePrice: service.price,
+          serviceTime: selectedDay,
         })
         setDayBookings(bookings)
       }
       fetch()
-    }, [selectedDay, service.id])
+    }, [selectedDay, service.id, service.name])
   }
 
   const selectedDate = useMemo(() => {
@@ -167,6 +170,9 @@ const ServiceItemNoLogin = ({ service, barbershop }: ServiceItemProps) => {
         date: selectedDate,
         name: nome,
         phone: phone,
+        serviceName: service.name,
+        servicePrice: service.price,
+        serviceTime: selectedDate,
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {

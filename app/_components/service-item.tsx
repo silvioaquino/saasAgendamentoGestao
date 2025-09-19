@@ -118,11 +118,14 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       const bookings = await getBookings({
         date: selectedDay,
         serviceId: service.id,
+        serviceName: service.name,
+        servicePrice: service.price,
+        
       })
       setDayBookings(bookings)
     }
     fetch()
-  }, [selectedDay, service.id])
+  }, [selectedDay, service.id, service.name, service.price])
 
   const selectedDate = useMemo(() => {
     if (!selectedDay || !selectedTime) return
@@ -162,6 +165,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         date: selectedDate,
         name: nome,
         phone: phone,
+        serviceName: service.name,
+        servicePrice: service.price,
+        
       })
       handleBookingSheetOpenChange()
       toast.success("Reserva criada com sucesso!", {
