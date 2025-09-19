@@ -6,6 +6,9 @@ import { db } from "../_lib/prisma"
 interface GetBookingsProps {
   serviceId: string
   date: Date
+  serviceName: string
+  servicePrice: string
+  
 }
 
 export const getBookings = ({ date }: GetBookingsProps) => {

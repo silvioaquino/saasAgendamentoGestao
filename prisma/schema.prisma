@@ -13,6 +13,10 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
+  password      String?
+  points        Point[]
+  rewards       Reward[]
+  role          Role     @default(USER)
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
@@ -92,5 +96,50 @@ model Booking {
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
   name       String?
-  phone      String?       
+  phone      String?
+  serviceName String?
+  servicePrice String?
+  serviceTime String?       
+}
+
+model Point {
+  id          String    @id @default(cuid())
+  amount      Int
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Reward {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  pointsCost  Int
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  isRedeemed  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Stock {
+  id          String    @id @default(cuid())
+  name        String
+  amount      Int
+  userId      String
+  createdAt   DateTime @default(now())
+}
+
+model Business {
+  id          String    @id @default(cuid())
+  name        String
+  price       Decimal    @db.Decimal(10, 2)
+  date        DateTime
+  userId      String
+  createdAt   DateTime @default(now())
 }

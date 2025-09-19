@@ -8,6 +8,8 @@ interface CreateBookingParams {
   date: Date
   name: string
   phone: string
+  serviceName: string
+  serviceTime: Date
 }
 
 export const createBookingNoLogin = async (params: CreateBookingParams) => {
